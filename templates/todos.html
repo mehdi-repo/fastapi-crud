@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="box">
+    <div class="header">
+      <form method="post">
+        <div>
+          <input class="todo-input" required="required" name="user" placeholder="Add user" type="text" value="{{ user }}" />
+          <input class="todo-input" required="required" name="title" placeholder="Add title" type="text" value="{{ title }}" />
+          <input class="todo-input" required="required" name="description" placeholder="Add description" type="text" value="{{ description }}" />
+        </div>
+        <button class="btn" id="button-addon2" type="submit">Add Todo</button>
+      </form>
+    </div>
+    {% if todos %}
+      <section class="p">
+        <div class="sub-header">
+         <h1>Todos List!</h1>
+        </div>
+        <br />
+            {% for todo in todos %}
+              <p class="card">
+                  <a href="/todo/{{ todo.id }}">{{ todo.title }}</a>
+              </p>
+            {% endfor %}
+      </section>
+    {% endif %}
+  </div>
+{% endblock %}
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Todo Application</title>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path = '/css/style.css') }}" />
+  </head>
+  <body>
+    <nav>
+      <h1><a class="text-light bg-dark" href="/todo">Todo Application</a></h1>
+    </nav>
+
+    <div class="container">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </body>
+</html>
