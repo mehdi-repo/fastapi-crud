@@ -1,22 +1,33 @@
-name: Python application
+#main.yml
+#This workflow will install Python dependencies, lint using Black, run tests using Pytest 
+#and Deploy the FastAPI app to Heroku
+name: fastapi-github-actions-test
 
-on:
-  push:
-    branches: [ "main" ]
+on: 
+  #Trigger the workflow on a push event to the master branch only
+  push: 
+    branches: [main]
 
+#A workflow job running sequentially
 jobs:
   build:
-
-    runs-on: self-hosted
-
+    #runs-on: defines The workflow runner
+    runs-on: ubuntu-latest 
+    #steps: defines a series of tasks executed by the Job
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+    - run: |   # To fetch all history for all tags and branches
+        git fetch --prune --unshallow  
+
+    #Task for setting up Python 3.8 using actions/setup-python@v2 Github action
     - name: Set up Python 3.11
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v2
       with:
-        python-version: 3.11
+        python-version: 3.11 # Modify python version HERE
+
+    #Task for installing dependencies, multi-line command
     - name: Install dependencies
       run: |
-        python3 -m venv ./venv
-        source venv/bin/active
-        pip install -r requirements.txt
+        python -m pip install --upgrade pip
+        python -m pip install black pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
