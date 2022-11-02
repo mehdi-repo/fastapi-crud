@@ -1,26 +1,19 @@
-name: Django CI
+name: Python application
 
-on:
-  push:
-    branches: [ "main" ]
+on: [push]
 
 jobs:
   build:
 
-    runs-on: self-hosted
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.11]
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.11
       uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
+        python-version: 3.11
+    - name: Install dependencies
       run: |
-        python3 -m venv ./venv
-        source venv/bin/active
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
