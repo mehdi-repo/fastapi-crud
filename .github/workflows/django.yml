@@ -1,33 +1,26 @@
-#main.yml
-#This workflow will install Python dependencies, lint using Black, run tests using Pytest 
-#and Deploy the FastAPI app to Heroku
-name: fastapi-github-actions-test
+name: Django CI
 
-on: 
-  #Trigger the workflow on a push event to the master branch only
-  push: 
-    branches: [main]
+on:
+  push:
+    branches: [ "main" ]
 
-#A workflow job running sequentially
 jobs:
   build:
-    #runs-on: defines The workflow runner
-    runs-on: self-hosted 
-    #steps: defines a series of tasks executed by the Job
+
+    runs-on: self-hosted
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.x]
+
     steps:
-    - uses: actions/checkout@v2
-    - run: |   # To fetch all history for all tags and branches
-        git fetch --prune --unshallow  
-
-    #Task for setting up Python 3.8 using actions/setup-python@v2 Github action
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
       with:
-        python-version: 3.11 # Modify python version HERE
-
-    #Task for installing dependencies, multi-line command
-    - name: Install dependencies
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
       run: |
         python3 -m venv ./venv
-        source venv/bin/active
+        source venv/bin/activate
         pip install -r requirements.txt
