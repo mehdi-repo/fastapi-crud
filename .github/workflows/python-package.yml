@@ -1,18 +1,13 @@
-name: Generate clients
-on: push
-jobs:
-  generate-clients:
-    runs-on: self-hosted
-    name: Example
-    steps:
-    - uses: actions/checkout@master
-    - name: Set up Python 3.11.0rc2
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.11.0rc2
+name: Sample Python
 
-    - name: Install 
-      run: >-
-        python -m
-        pip install -r requirements.txt
-        --user
+on: [push]
+
+jobs:
+  build:
+    runs-on: [self-hosted]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        pip3 install pytes
