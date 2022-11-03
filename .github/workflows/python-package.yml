@@ -2,14 +2,14 @@ name: Generate clients
 on: push
 jobs:
   generate-clients:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Example
     steps:
     - uses: actions/checkout@master
-    - name: Set up Python 3.10
+    - name: Set up Python 3.11.0
       uses: actions/setup-python@v1
       with:
-        python-version: 3.10
+        python-version: 3.11.0
 
     - name: Install 
       run: >-
